@@ -1,21 +1,42 @@
 ---
 layout: default
-title: 信号列表
+title: 首页
 ---
 
+{% assign sorted_signals = site.signals | sort: 'date' | reverse %}
+{% assign latest = sorted_signals | first %}
+
+{% if latest %}
+<!-- Latest issue: full content inline -->
+<section class="latest-section">
+  <div class="latest-badge">📡 最新一期</div>
+  <article class="signal-article">
+    <h1>{{ latest.title }}</h1>
+    {{ latest.content }}
+  </article>
+  <a href="{{ latest.url | relative_url }}" class="permalink-link">🔗 永久链接</a>
+</section>
+
+{% if sorted_signals.size > 1 %}
+<section class="archive-section">
+  <details>
+    <summary class="archive-toggle">📦 全部归档 ({{ sorted_signals.size | minus: 1 }} 期)</summary>
+    <div class="archive-list">
+      {% for signal in sorted_signals offset:1 %}
+      <a href="{{ signal.url | relative_url }}" class="archive-card">
+        <span class="archive-date">{{ signal.date | date: "%Y-%m-%d" }}</span>
+        <span class="archive-title">{{ signal.title }}</span>
+        <span class="signal-arrow">→</span>
+      </a>
+      {% endfor %}
+    </div>
+  </details>
+</section>
+{% endif %}
+
+{% else %}
 <div class="signal-list">
   <h1>📡 OPC日报 · 每日信号</h1>
-  <p class="subtitle">帮助一人公司（OPC）做出更好的决策</p>
-
-  {% assign sorted_signals = site.signals | sort: 'path' | reverse %}
-  {% for signal in sorted_signals %}
-  <a href="{{ signal.url | relative_url }}" class="signal-card">
-    <span class="signal-date">📅 {{ signal.slug }}</span>
-    <span class="signal-arrow">→</span>
-  </a>
-  {% endfor %}
-
-  {% if sorted_signals.size == 0 %}
   <p class="empty">暂无信号，敬请期待</p>
-  {% endif %}
 </div>
+{% endif %}

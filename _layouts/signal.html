@@ -7,12 +7,39 @@
   <div class="container">
     <header class="site-header">
       <a href="{{ site.baseurl }}/" class="site-title">📡 OPC日报</a>
-      <a href="{{ site.baseurl }}/" class="back-link">← 返回列表</a>
+      <a href="{{ site.baseurl }}/" class="back-link">← 返回首页</a>
     </header>
     <main class="content">
       <article class="signal-article">
         {{ content }}
       </article>
+      {% assign sorted = site.signals | sort: 'date' %}
+      {% assign prev = nil %}
+      {% assign next = nil %}
+      {% assign found = false %}
+      {% for s in sorted %}
+        {% if found and next == nil %}
+          {% assign next = s %}
+        {% endif %}
+        {% if s.url == page.url %}
+          {% assign found = true %}
+        {% endif %}
+        {% unless found %}
+          {% assign prev = s %}
+        {% endunless %}
+      {% endfor %}
+      <nav class="signal-nav">
+        {% if prev %}
+        <a href="{{ prev.url | relative_url }}" class="nav-prev">← {{ prev.date | date: "%m-%d" }}</a>
+        {% else %}
+        <span class="nav-disabled">← 没有更早</span>
+        {% endif %}
+        {% if next %}
+        <a href="{{ next.url | relative_url }}" class="nav-next">{{ next.date | date: "%m-%d" }} →</a>
+        {% else %}
+        <span class="nav-disabled nav-latest-badge">✦ 最新</span>
+        {% endif %}
+      </nav>
     </main>
     <footer class="site-footer">
       <p>OPC日报 · 每日信号 · <a href="https://github.com/MackDing/opc-daily-signal">GitHub</a></p>
