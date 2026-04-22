@@ -1,0 +1,23 @@
+{
+  "name": "OPC日报",
+  "short_name": "OPC日报",
+  "description": "每日信号，帮助一人公司做出更好的决策",
+  "start_url": "/opc-daily-signal/",
+  "scope": "/opc-daily-signal/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/opc-daily-signal/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/opc-daily-signal/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

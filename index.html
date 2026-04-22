@@ -1,0 +1,21 @@
+---
+layout: default
+title: 信号列表
+---
+
+<div class="signal-list">
+  <h1>📡 OPC日报 · 每日信号</h1>
+  <p class="subtitle">帮助一人公司（OPC）做出更好的决策</p>
+
+  {% assign sorted_signals = site.signals | sort: 'path' | reverse %}
+  {% for signal in sorted_signals %}
+  <a href="{{ signal.url | relative_url }}" class="signal-card">
+    <span class="signal-date">📅 {{ signal.slug }}</span>
+    <span class="signal-arrow">→</span>
+  </a>
+  {% endfor %}
+
+  {% if sorted_signals.size == 0 %}
+  <p class="empty">暂无信号，敬请期待</p>
+  {% endif %}
+</div>

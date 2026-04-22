@@ -1,0 +1,28 @@
+title: OPC日报
+description: 每日信号，帮助一人公司（OPC）做出更好的决策
+lang: zh-CN
+future: true
+
+collections:
+  signals:
+    output: true
+    permalink: /signals/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: signals
+    values:
+      layout: signal
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+  - LICENSE
+  - .github
+  - "*.sh"
+  - signals

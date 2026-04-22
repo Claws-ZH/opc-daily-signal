@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <a href="{{ site.baseurl }}/" class="site-title">📡 OPC日报</a>
+      <a href="{{ site.baseurl }}/" class="back-link">← 返回列表</a>
+    </header>
+    <main class="content">
+      <article class="signal-article">
+        {{ content }}
+      </article>
+    </main>
+    <footer class="site-footer">
+      <p>OPC日报 · 每日信号 · <a href="https://github.com/MackDing/opc-daily-signal">GitHub</a></p>
+    </footer>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('{{ site.baseurl }}/sw.js');
+    }
+  </script>
+</body>
+</html>
